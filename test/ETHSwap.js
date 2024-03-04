@@ -27,7 +27,6 @@ describe("ETHSwap contract", function () {
     it("Should successfully deploy the contract", async function () {
     const {ethSwap} = await DeploySwapFixture();
     console.log("ETHSwap deployed to:", ethSwap.target);
-
     });
 
     it("should revert if not enough Ether is sent", async function () {
