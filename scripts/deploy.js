@@ -7,9 +7,10 @@
 const hre = require("hardhat");
 
 async function main() {
- const ETHSwap = await hre.ethers.deployContract("ETHSwap", ["0xE592427A0AEce92De3Edee1F18E0157C05861564"]);
+ const ETHSwap = await hre.ethers.deployContract("ETHSwap", "0xE592427A0AEce92De3Edee1F18E0157C05861564");
  const ethswap = await ETHSwap.deploy();
-  console.log("ETHSwap deployed to:", ethswap.address);
+ await ethswap.deployed();
+  console.log("ETHSwap deployed to:", ethswap.target);
 }
 
 // We recommend this pattern to be able to use async/await everywhere
