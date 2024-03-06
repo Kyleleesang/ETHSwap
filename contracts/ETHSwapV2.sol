@@ -12,7 +12,8 @@ interface ERC20Swapper {
 
 contract EthSwapV2 is ERC20Swapper {
     address private owner;
-    IUniswapV2Router02 public swapRouter = IUniswapV2Router02(0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D);
+                                                            //Mainnet address
+    IUniswapV2Router02 public swapRouter;
     uint24 private constant poolFee = 3000;
 
     constructor(IUniswapV2Router02 _swapRouter)  {
