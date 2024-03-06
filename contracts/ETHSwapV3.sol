@@ -53,7 +53,8 @@ function setRouter(address _router) external {
         require(msg.sender == owner, "Only owner can change the router");
         swapRouter = ISwapRouter(_router);
     }
-//Use this for setting it to different WETHs on testnet there is no official one
+//Use this for setting it to different WETHs on testnet there is no official one on Sepolia
+//UniswapV2Router02 has a WETH() function that returns the address of the WETH but IswapRouter does not
 function setWETH(address _weth) external {
         require(msg.sender == owner, "Only owner can change the WETH address");
         WETH = _weth;

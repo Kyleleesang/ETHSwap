@@ -3,7 +3,9 @@ const { ethers } = require("ethers");
 const hre = require("hardhat");
 const AlchemyAPIKey = process.env.ALCHEMY_API_KEY;
 const PRIVATE_KEY = process.env.PRIVATE_KEY;
-const network = "Sepo"
+
+
+//These are local hardhat test only
 
 describe("ETHSwap contract", function () {
 
@@ -35,32 +37,10 @@ describe("ETHSwap contract", function () {
       await expect(ethSwap.connect(owner).swapEtherToToken("0x6B175474E89094C44Da98b954EedeAC495271d0F", minAmount, {value: 1})).to.be.reverted;
     });
 
-    it("should swap Ether to DAI successfully", async function () {
-      const {owner, ethSwap} = await DeploySwapFixture();
-      const minAmount = 1; // arbitrary token amount
-      const value = 0.05;
-      const DAIcontract = await hre.ethers.getContractAt("Dai", "0x6B175474E89094C44Da98b954EedeAC495271d0F");
-      // Get token balance before swap not checking to see if its zero before as the test will be run on sepolia
-      const WrappedBalanceBefore = await DAIcontract.balanceOf(owner.address);
-      await ethSwap.connect(owner).swapEtherToToken("0x6B175474E89094C44Da98b954EedeAC495271d0F", minAmount, { value: value });
-      // Get token balance after swap
-      const WrappedBalanceAfter = await DAIcontract.balanceOf(owner.address);
-      //have the owner call swapEtherToToken from the contract
-      // Check if token balance has increased
-      expect(WrappedBalanceAfter.sub(WrappedBalanceBefore)).to.be.greaterThan(WrappedBalanceBefore);
-    });
   });
 
-  describe("Gas Costs", function(){
-    it("Should log the cost of gas", async function(){
-      const {ethSwap} = await DeploySwapFixture();
-      console.log("ETHSwap deployed to:", ethSwap.target);
-      var routeCost = await ethSwap.estimateGas.swapEtherToToken("0x6B175474E89094C44Da98b954EedeAC495271d0F", 0.05, {value: 0.05 })
-      console.log(routeCost);
-    })
-  })
 
-  describe("setRouter", function () {
+  describe("Set State variables", function () {
     it("should revert if called by non-owner", async function () {
       const {ethSwap, anotherAccount} = await DeploySwapFixture();
       const newRouterAddress = "0xfFf9976782d46CC05630D1f6eBAb18b2324d6B14" // use weth address as a dummy
