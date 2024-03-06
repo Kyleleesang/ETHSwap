@@ -8,7 +8,7 @@ const hre = require("hardhat");
 
 async function main() {
  const ETHSwap = await hre.ethers.getContractFactory("ETHSwap");
- const ethswap = await ETHSwap.deploy("0xE592427A0AEce92De3Edee1F18E0157C05861564");
+ const ethswap = await ETHSwap.deploy("0x3bFA4769FB09eefC5a80d6E87c3B9C650f7Ae48E");
  await ethswap.waitForDeployment();
   console.log("ETHSwap deployed to:", ethswap.target);
 }

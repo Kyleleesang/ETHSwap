@@ -28,10 +28,10 @@ contract EthSwapV2 is ERC20Swapper {
         address[] memory path = new address[](2);
         path[0] = swapRouter.WETH();
         path[1] = _token;
-        swapRouter.swapExactETHForTokens{ value: msg.value }(minAmount, path, msg.sender, deadline);
+        uint256[] memory amounts = swapRouter.swapExactETHForTokens{ value: msg.value }(minAmount, path, msg.sender, deadline);
         (bool success,) = msg.sender.call{ value: address(this).balance }("");
         require(success, "refund failed");
-        return amount;
+        return amounts[1];
     }
     //For changing the router on Sepolia, the WETH address is not needed as it is hardcoded in the router
     //be sure to verify the source code of the weth address of the router for when you change it
