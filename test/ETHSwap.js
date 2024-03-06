@@ -5,7 +5,7 @@ const AlchemyAPIKey = process.env.ALCHEMY_API_KEY;
 const PRIVATE_KEY = process.env.PRIVATE_KEY;
 
 
-//These are local hardhat test only
+//These are local hardhat test only for ETHSwapV3
 
 describe("ETHSwap contract", function () {
 

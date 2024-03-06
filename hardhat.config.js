@@ -8,7 +8,17 @@ const Alchemy_API_Key = process.env.Alchemy_API_Key;
 const API_URL = process.env.API_URL;
 const Sepolia_Private_Key = process.env.Sepolia_Private_Key;
 module.exports = {
-  solidity: "0.8.20",
+  solidity: {
+    version:"0.8.20",
+    compilers: [
+      {
+        version: "0.8.20"
+      },
+      {
+        version: "0.5.12"
+      }
+    ]
+  },
   networks: {
     hardhat: {},
     sepolia: {

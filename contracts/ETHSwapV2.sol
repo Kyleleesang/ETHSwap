@@ -20,18 +20,21 @@ contract EthSwapV2 is ERC20Swapper {
         swapRouter = _swapRouter;
     }
 
+    //Have to swap ETH for WETH first then swap WETH for the token
     function swapEtherToToken(address _token, uint minAmount) external payable returns (uint256 amount) {
         require(msg.value > 0, "Must pass non 0 ETH amount");
+        //Just use 15 for now but in production just pass it in custom from the front end
          uint deadline = block.timestamp + 15;
         address[] memory path = new address[](2);
         path[0] = swapRouter.WETH();
         path[1] = _token;
-        swapRouter.swapETHForExactTokens{ value: msg.value }(minAmount, path, address(this), deadline);
+        swapRouter.swapExactETHForTokens{ value: msg.value }(minAmount, path, msg.sender, deadline);
         (bool success,) = msg.sender.call{ value: address(this).balance }("");
         require(success, "refund failed");
         return amount;
     }
-
+    //For changing the router on Sepolia, the WETH address is not needed as it is hardcoded in the router
+    //be sure to verify the source code of the weth address of the router for when you change it
     function setRouter(address _router) external {
         require(msg.sender == owner, "Only owner can change the router");
         swapRouter = IUniswapV2Router02(_router);

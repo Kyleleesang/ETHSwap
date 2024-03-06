@@ -8,7 +8,7 @@ const hre = require("hardhat");
 
 async function main() {
 const ETHSwapV2 = await hre.ethers.getContractFactory("EthSwapV2");
-//Demo Sepolia testnet address for Uniswap V2
+//Demo Sepolia testnet address for Uniswap V2 contract source code verified
 const ethswapV2 = await ETHSwapV2.deploy("0xC532a74256D3Db42D0Bf7a0400fEFDbad7694008");
 await ethswapV2.waitForDeployment();
 console.log("ETHSwap deployed to:", ethswapV2.target);
