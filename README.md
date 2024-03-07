@@ -1,11 +1,13 @@
 # Sample Hardhat Project
 
 
-ETHSwapV2 uses the UniswapV2Router02 interface and ETHSwapV3 uses anything that has an ISwapRouter interface from UniswapV3.
+ETHSwapV2 uses the UniswapV2Router02 interface and ETHSwapV3 uses anything that has an ISwapRouter02 interface from UniswapV3.
 UniswapV3 is currently not deployed on Sepolia officially but deploy scripts are provided which can be swapped out with unofficial 
 versions that will be or currently are on Sepolia as long as it implements the ISwapRouter interface.
 Verified contract Source Code for UniswapV2Router02: https://sepolia.etherscan.io/address/0xC532a74256D3Db42D0Bf7a0400fEFDbad7694008#code
-ETHSwapV2 deployed to: 0xc2DA95b2d9174375dfEBdc483C7db9ccC17dA133
+Verified contract source code for SwapRouter02: https://sepolia.etherscan.io/address/0x3bFA4769FB09eefC5a80d6E87c3B9C650f7Ae48E
+ETHSwapV2 deployed to: 0x6EaAd9A14c6d840d38Ef34529e562A3e038a68da
+ETHSwapV3 deployed to: 0x8963f3025aCb6964704172BAAc06E308a66389d4
 
 
 Potential Errors:
