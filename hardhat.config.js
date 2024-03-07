@@ -9,10 +9,16 @@ const API_URL = process.env.API_URL;
 const Sepolia_Private_Key = process.env.Sepolia_Private_Key;
 module.exports = {
   solidity: {
-    version:"0.8.20",
+    version:"0.8.19",
     compilers: [
       {
-        version: "0.8.20"
+        version: "0.8.19"
+      },
+      {
+        version: "0.7.6"
+      },
+      {
+        versuib: "0.8.20"
       },
       {
         version: "0.5.12"
