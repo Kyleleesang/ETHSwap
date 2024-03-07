@@ -1,7 +1,8 @@
 //SPDX-License-Identifier: MIT
 pragma solidity ^0.8.19;
 
-import '@uniswap/v3-periphery/contracts/interfaces/ISwapRouter.sol';
+
+import '@uniswap/swap-router-contracts/contracts/interfaces/ISwapRouter0202.sol';
 import '@uniswap/v3-periphery/contracts/libraries/TransferHelper.sol';
 
 
@@ -18,14 +19,14 @@ contract ETHSwap is ERC20Swapper{
     //
     address private owner;
     
-    //Mainnet: ISwapRouter public swapRouter = ISwapRouter(0xE592427A0AEce92De3Edee1F18E0157C05861564);
-    ISwapRouter public swapRouter;
+    //Mainnet: ISwapRouter02 public swapRouter = ISwapRouter02(0xC532a74256D3Db42D0Bf7a0400fEFDbad7694008);
+    ISwapRouter02 public swapRouter;
     //This is the mainnet address, for the purposes of this we will allow a function to change
     //the WETH address so you can deploy on test on different networks
     address private  WETH = 0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2;
     //most pools have the 0.3% fee
     uint24 private constant poolFee = 3000;
-    constructor(ISwapRouter _swapRouter) {
+    constructor(ISwapRouter02 _swapRouter) {
         swapRouter = _swapRouter;
         owner = msg.sender;
     }
@@ -35,7 +36,7 @@ function swapEtherToToken(address _token, uint minAmount) external payable retur
     require(msg.value > 0, "Must pass non 0 ETH amount");
     //Deadline can be set in the front end to allow custom deadlines but for now this is fine
     uint256 deadline = block.timestamp + 1000; 
-    ISwapRouter.ExactInputSingleParams memory params = ISwapRouter.ExactInputSingleParams({
+    ISwapRouter02.ExactInputSingleParams memory params = ISwapRouter02.ExactInputSingleParams({
                 tokenIn: WETH,
                 tokenOut: _token,
                 fee: poolFee,
@@ -51,10 +52,10 @@ function swapEtherToToken(address _token, uint minAmount) external payable retur
 //used by owner just incase router is compromised
 function setRouter(address _router) external {
         require(msg.sender == owner, "Only owner can change the router");
-        swapRouter = ISwapRouter(_router);
+        swapRouter = ISwapRouter02(_router);
     }
 //Use this for setting it to different WETHs on testnet there is no official one on Sepolia
-//UniswapV2Router02 has a WETH() function that returns the address of the WETH but IswapRouter does not
+//UniswapV2Router02 has a WETH() function that returns the address of the WETH but ISwapRouter02 does not
 function setWETH(address _weth) external {
         require(msg.sender == owner, "Only owner can change the WETH address");
         WETH = _weth;
